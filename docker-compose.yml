@@ -1,14 +1,17 @@
 version: '3.8'
 
+volumes:
+  pg_data:
+
 services:
   db:
     image: postgres
-    ports:
-      - "5432:5432"
     deploy:
       restart_policy:
         condition: none
         max_attempts: 5
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

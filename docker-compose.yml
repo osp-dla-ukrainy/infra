@@ -10,10 +10,10 @@ services:
       restart_policy:
         condition: none
         max_attempts: 5
-    - ports:
-        "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

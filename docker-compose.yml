@@ -23,10 +23,10 @@ services:
     image: pantyporowicz/osp-webapp-api:latest
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
-      interval: 1m30s
+      interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 40s
+      retries: 5
+      start_period: 20s
     environment:
       PORT: 3000
       DATABASE_HOST: db
@@ -34,6 +34,8 @@ services:
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_NAME: ${WEBAPI_DB_NAME}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     command:
       npm run start
 

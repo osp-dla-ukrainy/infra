@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/osp-dla-ukrainy/infra#readme",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.53.1",
+    "@aws-sdk/client-s3": "3.6.1",
+    "aws-sdk": "^2.1086.0",
     "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0"
   }
 }

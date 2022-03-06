@@ -17,7 +17,7 @@ const s3Client = new S3({
 const environments = ['dev', 'staging', 'prod'];
 const env = process.env.ENV;
 
-if (!environments.includes(env)) throw new Error(`Environment doesnt support: ${env}. Avaiable: ${environments}`)
+if (!environments.includes(env)) throw new Error(`Environment doesnt support: ${env}. Available: ${environments}`)
 
 const envFileLocalPath = path.join(env, '.env');
 const envFileBucketKey = `envs/${env}/.env`;

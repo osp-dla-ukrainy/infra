@@ -1,7 +1,8 @@
 const { S3 } = require('@aws-sdk/client-s3');
 const {config} = require('dotenv')
+const path = require("path");
 
-config();
+config({ path: `.env.devops` });
 
 const s3Client = new S3({
     tls: false,
@@ -13,7 +14,12 @@ const s3Client = new S3({
     }
 });
 
-const envFileLocalPath = '.env';
-const envFileBucketKey = 'envs/.env';
+const environments = ['dev', 'staging', 'prod'];
+const env = process.env.ENV;
+
+if (!environments.includes(env)) throw new Error(`Environment doesnt support: ${env}. Avaiable: ${environments}`)
+
+const envFileLocalPath = path.join(env, '.env');
+const envFileBucketKey = `envs/${env}/.env`;
 
 module.exports = { s3Client, envFileLocalPath, envFileBucketKey }

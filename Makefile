@@ -1,13 +1,21 @@
 #!make
-include .env
+include .env.devops
 
-$(eval export $(shell sed -ne 's/ *#.*$//; /./ s/=.*$$// p' .env))
+$(eval export $(shell sed -ne 's/ *#.*$//; /./ s/=.*$$// p' .env.devops))
 
 deploy:
 	docker stack deploy --compose-file docker-compose.yml osp
 
-download-envs:
-	node tools/download-envs
+check-env:
+ifndef ENV
+	$(error ENV is undefined)
+endif
 
-upload-envs:
-	node tools/upload-envs
+download-envs: check-env
+	ENV=$(ENV) node tools/download-envs
+
+upload-envs: check-env
+	ENV=$(ENV) node tools/upload-envs
+
+move-envs: check-env
+	ENV=$(ENV) cp ${ENV}/.env .env

@@ -4,7 +4,10 @@ include .env.devops
 $(eval export $(shell sed -ne 's/ *#.*$//; /./ s/=.*$$// p' .env.devops))
 
 deploy:
-	docker stack deploy --compose-file docker-compose.yml osp
+	node tools/deploy
+
+remove-services:
+	docker service rm osp_db osp_nginx osp_api
 
 check-env:
 ifndef ENV

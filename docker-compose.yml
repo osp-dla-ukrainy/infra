@@ -21,6 +21,8 @@ services:
 
   api:
     image: pantyporowicz/osp-webapp-api:latest
+    deploy:
+      replicas: 1
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
       interval: 30s

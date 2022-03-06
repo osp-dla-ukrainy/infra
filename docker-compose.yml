@@ -27,6 +27,8 @@ services:
       timeout: 10s
       retries: 5
       start_period: 20s
+    depends_on:
+      - db
     environment:
       PORT: 3000
       DATABASE_HOST: db
@@ -43,6 +45,8 @@ services:
 
   nginx:
     image: nginx
+    depends_on:
+      - api
     ports:
       - "80:80"
     volumes:

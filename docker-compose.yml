@@ -41,7 +41,7 @@ services:
       FACEBOOK_CLIENT_SECRET: ${FACEBOOK_CLIENT_SECRET}
       FACEBOOK_REDIRECT_URL: ${FACEBOOK_REDIRECT_URL}
     command:
-      tail -f package.json
+      npm run start
 
   nginx:
     image: nginx

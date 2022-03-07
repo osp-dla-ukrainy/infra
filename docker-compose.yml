@@ -52,6 +52,11 @@ services:
     command:
       npm run start
 
+  front:
+    image: pantyporowicz/osp-webapp-frontend:latest
+    command:
+      yarn start
+
   nginx:
     image: nginx
     depends_on:

@@ -1,0 +1,108 @@
+version: '3.8'
+
+volumes:
+  pg_data:
+
+services:
+  api:
+    image: pantyporowicz/osp-webapp-api:latest
+    deploy:
+      replicas: 1
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      - db
+      - rabbit
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: 3000
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_USERNAME: ${WEB_API__ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${WEB_API__ADMIN_PASSWORD}
+      FACEBOOK_CLIENT_ID: ${WEB_API__FACEBOOK_CLIENT_ID}
+      FACEBOOK_CLIENT_SECRET: ${WEB_API__FACEBOOK_CLIENT_SECRET}
+      FACEBOOK_REDIRECT_URL: ${WEB_API__FACEBOOK_REDIRECT_URL}
+      JWT_SECRET: ${WEB_API__JWT_SECRET}
+      JWT_EXPIRATION_TIME: ${WEB_API__JWT_EXPIRATION_TIME}
+      FRONTEND_BASE_URL: ${WEB_API__FRONTEND_BASE_URL}
+      FRONTEND_LOGIN_PAGES_SUCCESS: ${WEB_API__FRONTEND_LOGIN_PAGES_SUCCESS}
+      FRONTEND_LOGIN_PAGES_FAILED: ${WEB_API__FRONTEND_LOGIN_PAGES_FAILED}
+      SENTRY_DSN: ${WEB_API__SENTRY_DSN}
+    command:
+      npm run start
+
+  api_worker:
+    image: pantyporowicz/osp-webapp-api:latest
+    deploy:
+      replicas: 1
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      - db
+      - rabbit
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: 3000
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_USERNAME: ${WEB_API__ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${WEB_API__ADMIN_PASSWORD}
+      FACEBOOK_CLIENT_ID: ${WEB_API__FACEBOOK_CLIENT_ID}
+      FACEBOOK_CLIENT_SECRET: ${WEB_API__FACEBOOK_CLIENT_SECRET}
+      FACEBOOK_REDIRECT_URL: ${WEB_API__FACEBOOK_REDIRECT_URL}
+      JWT_SECRET: ${WEB_API__JWT_SECRET}
+      JWT_EXPIRATION_TIME: ${WEB_API__JWT_EXPIRATION_TIME}
+      FRONTEND_BASE_URL: ${WEB_API__FRONTEND_BASE_URL}
+      FRONTEND_LOGIN_PAGES_SUCCESS: ${WEB_API__FRONTEND_LOGIN_PAGES_SUCCESS}
+      FRONTEND_LOGIN_PAGES_FAILED: ${WEB_API__FRONTEND_LOGIN_PAGES_FAILED}
+      SENTRY_DSN: ${WEB_API__SENTRY_DSN}
+    command:
+      npm run start:queue:workers
+
+  api_producer:
+    image: pantyporowicz/osp-webapp-api:latest
+    deploy:
+      replicas: 1
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    depends_on:
+      - db
+      - rabbit
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: 3000
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_USERNAME: ${WEB_API__ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${WEB_API__ADMIN_PASSWORD}
+      FACEBOOK_CLIENT_ID: ${WEB_API__FACEBOOK_CLIENT_ID}
+      FACEBOOK_CLIENT_SECRET: ${WEB_API__FACEBOOK_CLIENT_SECRET}
+      FACEBOOK_REDIRECT_URL: ${WEB_API__FACEBOOK_REDIRECT_URL}
+      JWT_SECRET: ${WEB_API__JWT_SECRET}
+      JWT_EXPIRATION_TIME: ${WEB_API__JWT_EXPIRATION_TIME}
+      FRONTEND_BASE_URL: ${WEB_API__FRONTEND_BASE_URL}
+      FRONTEND_LOGIN_PAGES_SUCCESS: ${WEB_API__FRONTEND_LOGIN_PAGES_SUCCESS}
+      FRONTEND_LOGIN_PAGES_FAILED: ${WEB_API__FRONTEND_LOGIN_PAGES_FAILED}
+      SENTRY_DSN: ${WEB_API__SENTRY_DSN}
+    command:
+      npm run start:queue:producers
+

@@ -22,5 +22,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: cd osp/infra && git pull && ENV=${{ env.ENV }} make download-envs && ENV=${{ env.ENV }} make move-envs
-     - name: Deploy
-       run: ENV=${{ env.ENV }} make deploy
+      - name: Deploy
+        run: ENV=${{ env.ENV }} make deploy

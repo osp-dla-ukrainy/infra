@@ -1,11 +1,11 @@
-name: Download envs and deploy staging
+name: Download Envs Staging
 
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Download Envs Staging and deploy
+    name: Download Envs Staging
     runs-on: ubuntu-latest
     env:
       ENV: staging

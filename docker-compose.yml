@@ -52,6 +52,7 @@ services:
       RABBIT_USERNAME: ${RABBIT__USERNAME}
       RABBIT_PASSWORD: ${RABBIT__PASSWORD}
       CORS: ${WEB_API__CORS}
+      ONGEO_API_KEY: ${WEB_API__ONGEO_API_KEY}
     command:
       npm run start
 

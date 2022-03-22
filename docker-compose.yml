@@ -58,8 +58,6 @@ services:
 
   front:
     image: pantyporowicz/osp-webapp-frontend:latest
-    depends_on:
-      - api
     command:
       yarn start
 
